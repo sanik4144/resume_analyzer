@@ -12,13 +12,9 @@ app.use('/', analyzerHandler);
 
 async function start() {
     try {
-        const text = await extractCV();
-        setCVText(text);
-        console.log('CV loaded successfully');
-
-        app.listen(3000, () => console.log('Server running on port 3000'));
+        app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
     } catch (err) {
-        console.error('Failed to parse CV:', err);
+        console.error(err);
         process.exit(1);
     }
 }

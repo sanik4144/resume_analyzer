@@ -1,11 +1,20 @@
 const { PDFParse } = require('pdf-parse');
-const fs = require('fs');
 
-async function extractCV() {
-	const parser = new PDFParse({ url: './resume.pdf' });
+async function extractCV(fileUrl) {
+    // If no URL provided, warn and skip
+    if (!fileUrl) {
+        console.warn('⚠️ No file uploaded, skipping CV extraction.');
+        return null;
+    }
 
-	const result = await parser.getText();
-    return result.text;
+    try {
+        const parser = new PDFParse({ url: fileUrl });
+        const result = await parser.getText();
+        return result.text;
+    } catch (err) {
+        console.warn('⚠️ Could not parse PDF:', err.message);
+        return null;
+    }
 }
 
-module.exports = {extractCV};
+module.exports = { extractCV };
