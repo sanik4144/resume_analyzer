@@ -12,13 +12,7 @@ app.get('/', (req, res) => {
     res.redirect('/apply');
 });
 
-async function start() {
-    try {
-        app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
-    } catch (err) {
-        console.error(err);
-        process.exit(1);
-    }
-}
-
-start();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log('Server running');
+});
